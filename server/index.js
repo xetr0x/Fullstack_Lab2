@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import router from "./routes.js";
 
 const PORT = process.env.PORT || 5000;
 
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use("/api", router);
 
 mongoose
   .connect(process.env.CONNECTION_URL)
@@ -19,11 +21,3 @@ mongoose
     );
   })
   .catch((err) => console.error("database error", err));
-
-app.post("/api/employees", async (req, res) => {});
-
-app.post("/api/projects", async (req, res) => {});
-
-app.post("/api/project_assignments", async (req, res) => {});
-
-app.get("/api/project_assignments", async (req, res) => {});
