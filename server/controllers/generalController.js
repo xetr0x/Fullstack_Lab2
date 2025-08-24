@@ -38,7 +38,10 @@ export const addProjectAssignment = async (req, res) => {
 
 export const listProjectAssignments = async (req, res) => {
   try {
-    const projectAssignments = await ProjectAssignment.find();
+    const projectAssignments = await ProjectAssignment.find()
+      .limit(5)
+      .populate("employee_id")
+      .populate("project_code"); // Populate with data from Employee and Project collections
     res.status(200).json(projectAssignments);
   } catch (err) {
     res.status(400).json({ error: err.message });
