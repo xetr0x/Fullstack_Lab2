@@ -8,9 +8,9 @@ import {
 
 const router = express.Router();
 
-router.post("/employees", addEmployee);
-router.post("/projects", addProject);
-router.post("/project_assignments", addProjectAssignment);
-router.get("/project_assignments", listProjectAssignments);
+router.post("/api/employees", addEmployee);
+router.post("/api/projects", addProject);
+router.post("/api/project_assignments", addProjectAssignment);
+router.get("/api/project_assignments", listProjectAssignments);
 
 export default router;

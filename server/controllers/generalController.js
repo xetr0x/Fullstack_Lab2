@@ -40,6 +40,7 @@ export const listProjectAssignments = async (req, res) => {
   try {
     const projectAssignments = await ProjectAssignment.find()
       .limit(5)
+      .sort({ createdAt: -1 })
       .populate("employee_id")
       .populate("project_code"); // Populate with data from Employee and Project collections
     res.status(200).json(projectAssignments);
