@@ -54,7 +54,7 @@ const Table = () => {
   };
 
   return (
-    <div classname="table-container">
+    <div>
       <h2>the Table</h2>
       <table border={2} id="table">
         <thead>
