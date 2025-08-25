@@ -7,33 +7,30 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const PORT = process.env.PORT || 5000;
-dotenv.config();
+dotenv.config(); //enables use of .env file
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const app = express();
+const app = express(); // create express app
 
 app.use(express.json());
-app.use(cors());
+app.use(cors()); // enables cross-origin requests
 app.use("/", router);
 
 const reactBuildPath = path.join(__dirname, "../client/dist");
 app.use(express.static(reactBuildPath));
 
-console.log("React build path:", path.join(reactBuildPath, "index.html"));
-console.log(
-  "Current directory:",
-  "C:/uppgifter/Fullstack_Labs/Fullstack_Lab2/client/dist/index.html"
-);
 app.get(/(.*)/, (req, res) => {
+  // /(.*)/ instead of '*' in express v5
   res.sendFile(path.join(reactBuildPath, "index.html"));
 });
 
 mongoose
-  .connect(process.env.CONNECTION_URL)
+  .connect(process.env.CONNECTION_URL) //connect to database
   .then(() => {
     app.listen(PORT, () =>
+      //if successful connection, start server
       console.log(`server running at http://localhost:${PORT}`)
     );
   })

@@ -2,8 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Table = () => {
-  const [assignments, setAssignments] = useState([]);
+  const [assignments, setAssignments] = useState([]); //state for assignments
   const [sortBy, setSortBy] = useState({
+    //state for sorting
     key: "start_date",
     direction: "desc",
   });
@@ -13,25 +14,26 @@ const Table = () => {
       const response = await axios.get(
         "http://localhost:5000/api/project_assignments"
       );
-      setAssignments(response.data);
+      setAssignments(response.data); //if successful, set assigments to state
     } catch (err) {
       console.error("Error fetching project assigment:", err);
     }
   };
 
   useEffect(() => {
-    fetchAssignments();
+    fetchAssignments(); //fetch assignments
     const interval = setInterval(fetchAssignments, 60000); //fetches every 60 sec (60k miliseconds)
 
     return () => clearInterval(interval);
   }, []);
 
   const sortChoice = (key) => {
+    //always puts to the opposite direction when clicked
     let direction = "asc";
     if (sortBy.key === key && sortBy.direction === "asc") {
       direction = "desc";
     }
-    setSortBy({ key, direction });
+    setSortBy({ key, direction }); //sets new sort state
 
     const sorted = [...assignments].sort((a, b) => {
       const getVal = (item) =>
@@ -53,7 +55,7 @@ const Table = () => {
 
   return (
     <div classname="table-container">
-      <h2>Project Assignments Table</h2>
+      <h2>the Table</h2>
       <table border={2} id="table">
         <thead>
           {/* ! Table head !  */}
